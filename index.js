@@ -88,13 +88,14 @@ const setDateLimits = () => {
   const today = new Date();
   const year = today.getFullYear();
 
-  const maxDate = new Date(year - 18, today.getMonth(), today.getDate())
-    .toISOString()
-    .split("T")[0];
-  const minDate = new Date(year - 55, today.getMonth(), today.getDate())
-    .toISOString()
-    .split("T")[0];
+  const maxDateObj = new Date(year - 18, today.getMonth(), today.getDate());
+  const maxDate = `${maxDateObj.getFullYear()}-${String(
+    maxDateObj.getMonth() + 1
+  ).padStart(2, "0")}-${String(maxDateObj.getDate()).padStart(2, "0")}`;
 
+  const minDateObj = new Date(today);
+  minDateObj.setFullYear(minDateObj.getFullYear() - 55);
+  const minDate = minDateObj.toISOString().split("T")[0];
   dobInput.setAttribute("min", minDate);
   dobInput.setAttribute("max", maxDate);
 };
@@ -102,6 +103,7 @@ const setDateLimits = () => {
 setDateLimits();
 userForm.addEventListener("submit", saveUserForm);
 displayEntries();
+
 
 
 
