@@ -1,4 +1,5 @@
 let userForm = document.getElementById("user-form");
+
 const retrieveEntries = () => {
   let entries = localStorage.getItem("user-entries");
   if (entries) {
@@ -31,8 +32,20 @@ const displayEntries = () => {
     <th class="px-4 py-2">Dob</th>
     <th class="px-4 py-2">Accepted Terms?</th>
   </tr>${tableEntries}</table>`;
+
   let details = document.getElementById("user-entries");
   details.innerHTML = table;
+};
+
+const calculateAge = (dob) => {
+  const dobDate = new Date(dob);
+  const today = new Date();
+  let age = today.getFullYear() - dobDate.getFullYear();
+  const m = today.getMonth() - dobDate.getMonth();
+  if (m < 0 || (m === 0 && today.getDate() < dobDate.getDate())) {
+    age--;
+  }
+  return age;
 };
 
 const saveUserForm = (event) => {
@@ -44,31 +57,32 @@ const saveUserForm = (event) => {
   const dob = document.getElementById("dob").value;
   const acceptedTermsAndConditions =
     document.getElementById("acceptTerms").checked;
-  var currentYear = new Date().getFullYear();
-  var birthYear = dob.split("-");
-  let year = birthYear[0];
-  var age = currentYear - year;
-  console.log({ age, currentYear, birthYear });
-  if (age < 18 || age > 55) {
-    document.getElementById("dob").style = "border:1px solid red";
-    return alert("Age must be between 18 and 55");
-  } else {
-    document.getElementById("dob").style = "border:1px solid green";
 
-    const entry = {
-      name,
-      email,
-      password,
-      dob,
-      acceptedTermsAndConditions,
-    };
-    const userEntries = retrieveEntries();
-    userEntries.push(entry);
-    localStorage.setItem("user-entries", JSON.stringify(userEntries));
-    displayEntries();
-    userForm.reset();
+  const age = calculateAge(dob);
+
+  if (age < 18 || age > 55) {
+    document.getElementById("dob").style.border = "1px solid red";
+    alert("Age must be between 18 and 55");
+    return;
+  } else {
+    document.getElementById("dob").style.border = "1px solid green";
   }
+
+  const entry = {
+    name,
+    email,
+    password,
+    dob,
+    acceptedTermsAndConditions,
+  };
+
+  const userEntries = retrieveEntries();
+  userEntries.push(entry);
+  localStorage.setItem("user-entries", JSON.stringify(userEntries));
+  displayEntries();
+  userForm.reset();
 };
+
 const setDateLimits = () => {
   const dobInput = document.getElementById("dob");
   const today = new Date();
@@ -77,7 +91,6 @@ const setDateLimits = () => {
   const maxDate = new Date(year - 18, today.getMonth(), today.getDate())
     .toISOString()
     .split("T")[0];
-
   const minDate = new Date(year - 55, today.getMonth(), today.getDate())
     .toISOString()
     .split("T")[0];
@@ -87,9 +100,9 @@ const setDateLimits = () => {
 };
 
 setDateLimits();
-
 userForm.addEventListener("submit", saveUserForm);
 displayEntries();
+
 
 
 
