@@ -28,8 +28,8 @@ const displayEntries = () => {
     <th class="px-4 py-2">Name</th>
     <th class="px-4 py-2">Email</th>
     <th class="px-4 py-2">Password</th>
-    <th class="px-4 py-2">Date of Birth</th>
-    <th class="px-4 py-2">Accepted Terms and Conditions ?</th>
+    <th class="px-4 py-2">Dob</th>
+    <th class="px-4 py-2">Accepted Terms?</th>
   </tr>${tableEntries}</table>`;
   let details = document.getElementById("user-entries");
   details.innerHTML = table;
@@ -62,13 +62,34 @@ const saveUserForm = (event) => {
       dob,
       acceptedTermsAndConditions,
     };
+    const userEntries = retrieveEntries();
     userEntries.push(entry);
     localStorage.setItem("user-entries", JSON.stringify(userEntries));
     displayEntries();
     userForm.reset();
   }
 };
+const setDateLimits = () => {
+  const dobInput = document.getElementById("dob");
+  const today = new Date();
+  const year = today.getFullYear();
+
+  const maxDate = new Date(year - 18, today.getMonth(), today.getDate())
+    .toISOString()
+    .split("T")[0];
+
+  const minDate = new Date(year - 55, today.getMonth(), today.getDate())
+    .toISOString()
+    .split("T")[0];
+
+  dobInput.setAttribute("min", minDate);
+  dobInput.setAttribute("max", maxDate);
+};
+
+setDateLimits();
+
 userForm.addEventListener("submit", saveUserForm);
 displayEntries();
+
 
 
