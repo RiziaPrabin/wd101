@@ -20,21 +20,12 @@ const displayEntries = () => {
       const passwordCell = `<td class='border px-4 py-2'>${entry.password}</td>`;
       const dobCell = `<td class='border px-4 py-2'>${entry.dob}</td>`;
       const acceptedTermsAndConditionsCell = `<td class='border px-4 py-2'>${entry.acceptedTermsAndConditions}</td>`;
-      const row = `<tr>${nameCell}${emailCell}${passwordCell}${dobCell}${acceptedTermsAndConditionsCell}</tr>`;
-      return row;
+      return `<tr>${nameCell}${emailCell}${passwordCell}${dobCell}${acceptedTermsAndConditionsCell}</tr>`;
     })
     .join("\n");
 
-  const table = `<table class="table-auto w-full"><tr>
-    <th class="px-4 py-2">Name</th>
-    <th class="px-4 py-2">Email</th>
-    <th class="px-4 py-2">Password</th>
-    <th class="px-4 py-2">Dob</th>
-    <th class="px-4 py-2">Accepted Terms?</th>
-  </tr>${tableEntries}</table>`;
-
-  let details = document.getElementById("user-entries");
-  details.innerHTML = table;
+  const tbody = document.getElementById("user-entries");
+  tbody.innerHTML = tableEntries;
 };
 
 const calculateAge = (dob) => {
@@ -103,8 +94,3 @@ const setDateLimits = () => {
 setDateLimits();
 userForm.addEventListener("submit", saveUserForm);
 displayEntries();
-
-
-
-
-
