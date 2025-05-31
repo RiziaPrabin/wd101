@@ -40,18 +40,17 @@ const saveUserForm = (event) => {
 
   const dobValue = document.getElementById("dob").value;
   const dobDate = new Date(dobValue);
-
-  // Check age between 18 and 55
   const today = new Date();
-  const age = today.getFullYear() - dobDate.getFullYear();
-  const m = today.getMonth() - dobDate.getMonth();
-  if (m < 0 || (m === 0 && today.getDate() < dobDate.getDate())) {
-    age--;
-  }
 
+  // Calculate age accurately
+  const ageDiff = today - dobDate;
+  const ageDate = new Date(ageDiff);
+  const age = Math.abs(ageDate.getUTCFullYear() - 1970);
+
+  // Validate age range
   if (age < 18 || age > 55) {
     alert("Age must be between 18 and 55 years.");
-    return; // Stop form submission
+    return;
   }
 
   const name = document.getElementById("name").value;
@@ -90,3 +89,4 @@ const formatDate = (date) => date.toISOString().split("T")[0];
 
 dobInput.setAttribute("max", formatDate(maxDOB));
 dobInput.setAttribute("min", formatDate(minDOB));
+
