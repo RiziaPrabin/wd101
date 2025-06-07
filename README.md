@@ -1,52 +1,36 @@
-# wd101
+## wd101
+# 📝 Registration Form with Local Storage
 
-Capstone project of GDC Workforce Programme 
+A responsive and user-friendly registration form built with **HTML**, **JavaScript**, and **Tailwind CSS**. This form validates user inputs, stores entries locally in the browser, and dynamically displays them in a styled table.
 
-Registration Form
+---
 
-🔐 Registration Form - Features
-✅ Form Input Fields
-Full Name
+## 🚀 Features
 
-Email Address
+### ✅ Form Inputs
+- Full Name
+- Email Address
+- Password
+- Date of Birth
+- Terms & Conditions acceptance
 
-Password
+### 🧠 Validations
+- Validates email 
+- Ensures the user is between **18 and 55 years old**
+  - DOB input limits set using JavaScript
+- Requires terms acceptance before submission
 
-Date of Birth (DOB)
+### 💾 Local Storage
+- Stores user entries in **localStorage**
+- Data persists even after page refresh
+- All entries displayed dynamically in a table format
 
-Terms & Conditions acceptance checkbox
+### 🎨 UI/UX Design
+- Clean and modern design using **Tailwind CSS**
+- Responsive and mobile-friendly layout
+- Focus rings, hover effects, and accessible styling
 
-🧠 Client-Side Validations
-✔ Valid email format using regular expression
-
-✔ Password required (can be extended with strength rules)
-
-✔ DOB restricted to users aged between 18 and 55 years
-
-Dynamic min/max date limits set in JavaScript
-
-Accurate age calculation using current date
-
-✔ Terms & Conditions checkbox required before submission
-
-🗃️ Data Persistence
-User entries are stored in Local Storage to retain data even after page reload
-
-Entries are displayed dynamically in a table below the form
-
-🎨 UI/UX with Tailwind CSS
-Responsive and modern UI using Tailwind
-
-Focus effects, hover states, rounded inputs, and clean layout
-
-Mobile-friendly and visually appealing design
-
-🔄 Dynamic Behavior
-Form entries rendered in a table in real time after submission
-
-Input validation prevents form submission with invalid data
-
-Form resets after successful entry
-
+## 📸 Screenshot
+<img width="959" alt="Screenshot 2025-06-07 221832" src="https://github.com/user-attachments/assets/3f5cbb9e-3f92-4591-807d-7f36d3db2b7c" />
 
 
