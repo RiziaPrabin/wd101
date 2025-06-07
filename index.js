@@ -28,16 +28,16 @@ const displayEntries = () => {
   tbody.innerHTML = tableEntries;
 };
 
-const calculateAge = (dob) => {
-  const dobDate = new Date(dob);
+function isValidAge(dob) {
+  const birthDate = new Date(dob);
   const today = new Date();
-  let age = today.getFullYear() - dobDate.getFullYear();
-  const m = today.getMonth() - dobDate.getMonth();
-  if (m < 0 || (m === 0 && today.getDate() < dobDate.getDate())) {
+  let age = today.getFullYear() - birthDate.getFullYear();
+  const m = today.getMonth() - birthDate.getMonth();
+  if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
     age--;
   }
-  return age;
-};
+  return age >= 18 && age <= 55;
+}
 
 const saveUserForm = (event) => {
   event.preventDefault();
@@ -49,14 +49,9 @@ const saveUserForm = (event) => {
   const acceptedTermsAndConditions =
     document.getElementById("acceptTerms").checked;
 
-  const age = calculateAge(dob);
-
-  if (age < 18 || age > 55) {
-    document.getElementById("dob").style.border = "1px solid red";
-    alert("Age must be between 18 and 55");
+  if (!isValidAge(dob)) {
+    alert("Age must be between 18 and 55 years.");
     return;
-  } else {
-    document.getElementById("dob").style.border = "1px solid green";
   }
 
   const entry = {
@@ -74,23 +69,5 @@ const saveUserForm = (event) => {
   userForm.reset();
 };
 
-const setDateLimits = () => {
-  const dobInput = document.getElementById("dob");
-  const today = new Date();
-  const year = today.getFullYear();
-
-  const maxDateObj = new Date(year - 18, today.getMonth(), today.getDate());
-  const maxDate = `${maxDateObj.getFullYear()}-${String(
-    maxDateObj.getMonth() + 1
-  ).padStart(2, "0")}-${String(maxDateObj.getDate()).padStart(2, "0")}`;
-
-  const minDateObj = new Date(today);
-  minDateObj.setFullYear(minDateObj.getFullYear() - 55);
-  const minDate = minDateObj.toISOString().split("T")[0];
-  dobInput.setAttribute("min", minDate);
-  dobInput.setAttribute("max", maxDate);
-};
-
-setDateLimits();
 userForm.addEventListener("submit", saveUserForm);
 displayEntries();
